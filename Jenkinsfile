@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    stage {
+    stages {
         stage ('Just test')
         steps {
             sh 'echo correct!'
