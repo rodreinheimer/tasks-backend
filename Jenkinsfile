@@ -25,6 +25,13 @@ pipeline {
                 }
             }
         }
+        stage ('Quality Gate') {
+            steps {
+                waitForQualityGate(time: 1, unit: 'MINUTES') {
+                }
+                waitForQualityGate abortPipeline: true
+            }
+        }
     }
 }
 
