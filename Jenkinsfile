@@ -7,7 +7,6 @@ pipeline {
     stages {
         stage ('Build Backend') {
             steps {
-                sh 'echo PATH is: $PATH'
                 sh 'mvn clean package -DskipTests=true'
             }
         }
@@ -67,8 +66,10 @@ pipeline {
         stage ('Deploy Prod') {
             steps {
                 sh 'echo PATH is: $PATH'
-                sh 'docker-compose build'
-                sh 'docker-compose up -d'
+                withEnv(['PATH+EXTRA=/usr/local/bin/:/usr/local/bin/docker']) {
+                    sh 'docker-compose build'
+                    sh 'docker-compose up -d'
+                }
             }
         }
         stage ('Health Check') {
