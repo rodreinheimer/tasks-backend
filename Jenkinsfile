@@ -20,7 +20,7 @@ pipeline {
                 dir('shiftleft-test') {
                     git credentialsId: 'github_login', url: 'https://github.com/rodreinheimer/shiftleft-java-demo.git/'
                     sh 'mvn -e clean package'
-                    sh 'sl analyze --app HelloShiftLeft --java target/hello-shiftleft-0.0.1.jar'
+                    sh '/usr/local/bin/sl analyze --app HelloShiftLeft --java target/hello-shiftleft-0.0.1.jar'
                 }
             }
         }
