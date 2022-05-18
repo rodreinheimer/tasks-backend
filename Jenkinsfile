@@ -66,8 +66,8 @@ pipeline {
         stage ('Deploy Prod') {
             steps {
                 sh 'echo PATH is: $PATH'
-                sh '/usr/bin/docker-compose build'
-                sh '/usr/bin/docker-compose up -d'
+                sh '/usr/local/bin/docker-compose build'
+                sh '/usr/local/bin/docker-compose up -d'
             }
         }
         stage ('Health Check') {
