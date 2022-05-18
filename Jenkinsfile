@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    environment {
-        PATH = '/usr/local/bin/docker'
-    }
     tools { 
       maven 'MAVEN_LOCAL' 
       jdk 'JAVA_LOCAL' 
+    }
+    environment {
+        PATH = '$PATH:/usr/local/bin/docker'
     }
     stages {
         stage ('Build Backend') {
