@@ -65,10 +65,9 @@ pipeline {
         }
         stage ('Deploy Prod') {
             steps {
-                withEnv(["PATH=$PATH:~/.local/bin"]){
-                    sh 'docker-compose build'
-                    sh 'docker-compose up -d'
-                }
+                sh 'echo PATH is: $PATH'
+                sh '/usr/bin/docker-compose build'
+                sh '/usr/bin/docker-compose up -d'
             }
         }
         stage ('Health Check') {
