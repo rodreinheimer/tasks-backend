@@ -15,6 +15,15 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage ('ShiftLeft Analysis') {
+            steps {
+                dir('shiftleft-test') {
+                    git credentialsId: 'github_login', url: 'https://github.com/rodreinheimer/shiftleft-java-demo.git/'
+                    sh 'mvn -e clean package'
+                    sh 'sl analyze --app HelloShiftLeft --java target/hello-shiftleft-0.0.1.jar'
+                }
+            }
+        }
         stage ('SonarQube Analysis') {
             environment {
                 scannerHome = tool 'SONAR_SCANNER'
