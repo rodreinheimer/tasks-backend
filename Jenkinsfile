@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        PATH = '/usr/local/bin/docker'
+    }
     tools { 
       maven 'MAVEN_LOCAL' 
       jdk 'JAVA_LOCAL' 
