@@ -65,7 +65,6 @@ pipeline {
         }
         stage ('Deploy Prod') {
             steps {
-                sh 'echo PATH is: $PATH'
                 withEnv(['PATH+EXTRA=/usr/local/bin/:/usr/local/bin/docker']) {
                     sh 'docker-compose build'
                     sh 'docker-compose up -d'
@@ -78,6 +77,11 @@ pipeline {
                     sh 'mvn verify -Dskip.surefire.tests'
                 }
             }
+        }
+    }
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, api-test/target/surefire-reports/*.xml, functional-test/target/surefire-reports/*.xml, functional-test/target/failsafe-repor/*.xml'
         }
     }
 }
