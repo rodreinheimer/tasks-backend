@@ -5,11 +5,12 @@ pipeline {
       jdk 'JAVA_LOCAL' 
     }
     environment {
-        PATH = '$PATH:/usr/local/bin/docker'
+        PATH = '/usr/local/bin/docker'
     }
     stages {
         stage ('Build Backend') {
             steps {
+                sh 'echo PATH is: $PATH'
                 sh 'mvn clean package -DskipTests=true'
             }
         }
