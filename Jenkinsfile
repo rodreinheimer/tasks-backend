@@ -4,9 +4,6 @@ pipeline {
       maven 'MAVEN_LOCAL' 
       jdk 'JAVA_LOCAL' 
     }
-    environment {
-        PATH = '/usr/local/bin/docker'
-    }
     stages {
         stage ('Build Backend') {
             steps {
@@ -70,8 +67,8 @@ pipeline {
         stage ('Deploy Prod') {
             steps {
                 sh 'echo PATH is: $PATH'
-                sh '/usr/local/bin/docker-compose build'
-                sh '/usr/local/bin/docker-compose up -d'
+                sh 'docker-compose build'
+                sh 'docker-compose up -d'
             }
         }
         stage ('Health Check') {
