@@ -15,15 +15,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage ('ShiftLeft Analysis') {
-            steps {
-                dir('shiftleft-test') {
-                    git credentialsId: 'github_login', url: 'https://github.com/rodreinheimer/shiftleft-java-demo.git/'
-                    sh 'mvn -e clean package'
-                    sh '/usr/local/bin/sl analyze --app HelloShiftLeft --java target/hello-shiftleft-0.0.1.jar'
-                }
-            }
-        }
         stage ('SonarQube Analysis') {
             environment {
                 scannerHome = tool 'SONAR_SCANNER'
@@ -39,6 +30,15 @@ pipeline {
                 sleep(5)
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage ('ShiftLeft Analysis') {
+            steps {
+                dir('shiftleft-test') {
+                    git credentialsId: 'github_login', url: 'https://github.com/rodreinheimer/shiftleft-java-demo.git/'
+                    sh 'mvn -e clean package'
+                    sh '/usr/local/bin/sl analyze --app HelloShiftLeft --java target/hello-shiftleft-0.0.1.jar'
                 }
             }
         }
